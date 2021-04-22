@@ -5,7 +5,7 @@
     if(!isset($_SESSION['username'])) {
         header("Location: login.php");
     }
-
+    /* idからユーザ名を取得 */
     $query = "SELECT * FROM login WHERE id=".$_SESSION['username']."";
     $result = $mysqli->query($query);
 
@@ -14,12 +14,12 @@
         $mysqli->close();
         exit;
     }
-
+    /* ユーザ情報の取り出し */
     while($row = $result->FETCH_ASSOC()) {
         $username = $row['username'];
         $email = $row['email'];
     }
-
+    /* DB切断 */
     $result->close();
 ?>
 

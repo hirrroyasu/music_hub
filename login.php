@@ -11,9 +11,37 @@ if(!empty($_SESSION['login'])) {
     echo "<a href=index.php>ホームに戻る</a>";
     exit;
 }
+
 if(isset($_SESSION['username'])!="") {
     header("Location: index.php");
 }
+
+if(isset($_POST['ログイン'])) {
+    $email = $mysqli->real_escape_string($_POST['email']);
+    $password = $mysqli->real_escape_string($_POST['password']);
+
+    $query = "SELECT * FROM login WHERE email='$email'";
+    $result = $mysqli->$query($query);
+    if(!$result) {
+        print('クエリーが失敗しました。'.$mysqli->error);
+        $mysqli->close();
+        exit;
+    }
+    while($row=$result->FETCH_ASSOC()) {
+        $db_hased_pwd=$row['password'];
+        $id= $row['id'];
+    }
+    $result->close();
+    
+    if(password_verify($password, $dn_hased_pwd)) {
+        $_SESSION['username'] = $id;
+        header ("Location: index.php");
+        exit;
+    } else { ?>
+        <div class="alert alert-danger" role="alert">メールアドレスとパスワードが一致しません</div>
+    <?php }
+}
+
     /**
      * isset関数: 引数でもらった変数に値が入っているかどうか。入っていてnullじゃなかったらtrue,そうじゃなかったらfalseを返す
      * 今回は変数errorに値が入ってなかったときに以下の処理をする */
