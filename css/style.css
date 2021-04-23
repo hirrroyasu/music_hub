@@ -284,6 +284,10 @@ body {
 
 }
 
+#index {
+  background-color: palegreen;
+}
+
 .main {
   position: absolute;
   top: 64px;
@@ -412,6 +416,10 @@ label {
 .check-info {
   color: #2b546a;
   font-weight: bold;
+}
+
+div [class="alert alert-danger"] {
+  background-color: chartreuse;
 }
 
 /* @media (max-width: 600px) {

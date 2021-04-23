@@ -35,6 +35,10 @@ if(!empty($_POST)) {
     }
 
 }
+
+if(isset($_SESSION['id']) != "") {
+    header("Location: index.php");
+}
 ?>
 <div id="form">
     <form action="" method="post">

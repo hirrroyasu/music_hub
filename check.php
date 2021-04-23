@@ -38,7 +38,7 @@ if(!empty($_POST['check'])) {
         <form action="" method="POST">
             <input type="hidden" name="check" value="checked">
             <h1>入力情報の確認</h1>
-            <p>こちらでよろしいですか？</p>
+            <h2>こちらの内容で登録してよろしいですか？</h2>
             <?php if(!empty($error) && $error == "error"): ?>
                 <p class="error">＊登録に失敗しました</p>
             <?php endif ?>
