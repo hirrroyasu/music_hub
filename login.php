@@ -28,9 +28,17 @@ if(isset($_POST['login'])) {
     $stmt->bindValue(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
     $row = $stmt->fetch();
-    $data = $row;
     
-    if(password_verify($password, $data['password'])) {
+    
+    if(password_verify($password, $row['password'])) {
+        $name = $row['username'];
+        $user = "SELECT * FROM login WHERE username = '$name'";
+        $statement = $dbh->prepare($user);
+        $statement->execute();
+        foreach ($statement as $row) {
+            $row['username'];
+        }
+        $_SESSION["USERNAME"] = $row['username'];
         header('Location: http://localhost/musichub/index.php');
     }
 }
@@ -39,7 +47,7 @@ if(isset($_POST['login'])) {
 <div id="form">
     <form action='login.php' method="post">
     <h2>ログインフォーム</h2>
-        <?php if(isset($_POST['login']) && !password_verify($password, $data['password'])): ?>
+        <?php if(isset($_POST['login']) && !password_verify($password, $row['password'])): ?>
             <p class="error">！ユーザー名もしくはパスワードが一致しません</p>
         <?php endif ?>
         <p><label>ユーザー名<br>
