@@ -8,7 +8,7 @@ if (!isset($_SESSION["USERNAME"])) {
     exit;
 }
 try {
-    $sql = 'SELECT * FROM post';
+    $sql = 'SELECT * FROM post ORDER BY id DESC';
     $stmt = $dbh->query($sql);
 
     $row_count = $stmt->rowCount();
@@ -38,17 +38,20 @@ try {
     <p class="welcome">ようこそ、<?php echo htmlspecialchars($_SESSION["USERNAME"], ENT_QUOTES); ?>さん！</p>
     <nav>
         <ul>
-            <a href="./index.php"><li>Top</li></a>
+            <a href="./index.php"><li>Top</li></a> 
             <a href="./genre.php"><li>ジャンル別投稿一覧</li></a>
             <a href="./mypage.php"><li>マイページ</li></a>
             <a href="./logout.php"><li>ログアウト</li></a>
         </ul>
     </nav>
     <a href="./post.php" class="btn btn--orange btn--radius">投稿する</a>
-
     <?php
     foreach($rows as $row) {
-        echo htmlspecialchars($row['post_content'], ENT_QUOTES, 'UTF-8').'<br />';
+        echo "<table border = 1>";
+        echo '<tr class="username"><td>'.htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8').'</td></tr><br />';
+        echo '<tr class="content"><td>'.htmlspecialchars($row['post_content'], ENT_QUOTES, 'UTF-8').'</td></tr><br />';
+        echo '<tr><td>'.$row['url'].'</td></tr><br />';
+        echo '<tr class="date"><td>'.htmlspecialchars($row['post_date'], ENT_QUOTES, 'UTF-8').'</td></tr><br />';
     }
     ?>
 </body>

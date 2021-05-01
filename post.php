@@ -1,14 +1,24 @@
 <?php
 /* dbconnect_post/phpに接続 */
+require_once("./dbconnect.php");
 require_once('./dbconnect_post.php');
+session_start();
+
+/* もしログインしていない状態で投稿ページに行こうとした場合ログアウト画面に自動遷移 */
+if (!isset($_SESSION["USERNAME"])) {
+    header("Location: logout.php");
+    exit;
+}
 
 /* もし$_POST['post']が空じゃなかったら以下のtry～catch文を実行 */
 if(!empty($_POST['post'])) {
     try {
         /* prepareメソッドでSQL文を準備しセットする */
-        $stmt = $dbh->prepare('INSERT INTO post(post_content) VALUES(:CONTENTS)');
+        $stmt = $dbh->prepare('INSERT INTO post(post_content, username, url) VALUES(:CONTENTS, :USERNAME, :URL)');
         /* SQL文に文字列変数を埋め込む（バインド）する */
         $stmt->bindParam(':CONTENTS', $_POST['post'], PDO::PARAM_STR);
+        $stmt->bindParam(':USERNAME', $_SESSION["USERNAME"], PDO::PARAM_STR);
+        $stmt->bindParam(':URL', $_POST['url'], PDO::PARAM_STR);
         /* executeでSQL文実行 */
         $stmt->execute();
         /* index.phpをブラウザで表示 */
@@ -32,8 +42,9 @@ if(!empty($_POST['post'])) {
 <body>
     <form action="" method="post">
         <textarea id="post" cols="230" rows="15" name="post" placeholder="お気に入りの曲を投稿してみよう！"></textarea><br>
+        <input type="text" name="url" id="url" placeholder="埋め込みコードを貼り付けて下さい"><br>
         <input type="submit" name="submit" value="投稿">
-        <input type="button" value="ホームに戻る" onclick="history.back()">
+        <input type="button" value="ホームに戻る" onclick="location.href='index.php'">
     </form>
 </body>
 </html>
