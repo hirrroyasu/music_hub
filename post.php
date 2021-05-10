@@ -14,11 +14,12 @@ if (!isset($_SESSION["USERNAME"])) {
 if(!empty($_POST['post'])) {
     try {
         /* prepareメソッドでSQL文を準備しセットする */
-        $stmt = $dbh->prepare('INSERT INTO post(post_content, username, url) VALUES(:CONTENTS, :USERNAME, :URL)');
+        $stmt = $dbh->prepare('INSERT INTO post(post_content, username, url, genre) VALUES(:CONTENTS, :USERNAME, :URL, :GENRE)');
         /* SQL文に文字列変数を埋め込む（バインド）する */
         $stmt->bindParam(':CONTENTS', $_POST['post'], PDO::PARAM_STR);
         $stmt->bindParam(':USERNAME', $_SESSION["USERNAME"], PDO::PARAM_STR);
         $stmt->bindParam(':URL', $_POST['url'], PDO::PARAM_STR);
+        $stmt->bindParam(':GENRE', $_POST['genre'], PDO::PARAM_STR);
         /* executeでSQL文実行 */
         $stmt->execute();
         /* index.phpをブラウザで表示 */
@@ -37,12 +38,21 @@ if(!empty($_POST['post'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
     <title>投稿フォーム</title>
 </head>
-<body>
+<body id="post">
     <form action="" method="post">
         <textarea id="post" cols="230" rows="15" name="post" placeholder="お気に入りの曲を投稿してみよう！"></textarea><br>
         <input type="text" name="url" id="url" placeholder="埋め込みコードを貼り付けて下さい"><br>
+        <select name="genre">
+            <option value="" disabled selected style='display:none;'>ジャンルを指定</option>
+            <option value="ロック">ロック</option>
+            <option value="ポップ">ポップ</option>
+            <option value="ヒップホップ">ヒップホップ</option>
+            <option value="ジャズ">ジャズ</option>
+            <option value="エレクトロニック">エレクトロニック</option>
+        </select><br>
         <input type="submit" name="submit" value="投稿">
         <input type="button" value="ホームに戻る" onclick="location.href='index.php'">
     </form>

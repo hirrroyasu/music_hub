@@ -36,7 +36,7 @@ try {
 	<h1><a href="index.php">MusicHub</a></h1>
 </header>
     <p class="welcome">ようこそ、<?php echo htmlspecialchars($_SESSION["USERNAME"], ENT_QUOTES); ?>さん！</p>
-    <nav>
+    <nav class="menu">
         <ul>
             <a href="./index.php"><li>Top</li></a> 
             <a href="./genre.php"><li>ジャンル別投稿一覧</li></a>
@@ -51,6 +51,7 @@ try {
         echo '<tr class="username"><td>'.htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8').'</td></tr><br />';
         echo '<tr class="content"><td>'.htmlspecialchars($row['post_content'], ENT_QUOTES, 'UTF-8').'</td></tr><br />';
         echo '<tr><td>'.$row['url'].'</td></tr><br />';
+        echo '<tr><td>ジャンル：'.htmlspecialchars($row['genre'], ENT_QUOTES, 'UTF-8').'</td></tr><br />';
         echo '<tr class="date"><td>'.htmlspecialchars($row['post_date'], ENT_QUOTES, 'UTF-8').'</td></tr><br />';
     }
     ?>

@@ -45,7 +45,7 @@ if(isset($_POST['login'])) {
 ?>
 
 <div id="form">
-    <form action='login.php' method="post">
+    <form action='login.php' method="post" class="form_login">
     <h2>ログインフォーム</h2>
         <?php if(isset($_POST['login']) && !password_verify($password, $row['password'])): ?>
             <p class="error">！ユーザー名もしくはパスワードが一致しません</p>

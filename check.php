@@ -54,7 +54,7 @@ if(!empty($_POST['check'])) {
 
             <br>
             <a href="signup.php"><button type="button" class="back-btn">修正</button></a>
-            <button type="submit"class="btn next-btn">登録</button>
+            <button type="submit"class="next-btn">登録</button>
         </form>
     </div>
 </body>

@@ -13,20 +13,44 @@ a {
   color: rgb(172, 24, 147);
 }
 
-ul {
-  list-style: none;
-}
-input[type="submit"] {
+input[type="submit"][name="login"] {
   background-color: rgba(32, 152, 243, 0.9);
 }
 
-ul li {
-  display: inline-block;
+/* ul li {
+  display:inline-block;
   width: 210px;
   height: 35px;
   border: 1px solid black;
   font-size: 20px;
   font-weight: bold;
+} */
+
+/* ul li {
+  list-style-type: none;
+  display: table;
+	margin: 0;
+	padding: 0;
+	width: 300px;
+	position: relative;
+	overflow: auto;
+  font-weight: bold;
+  font-size: x-large;
+  border: 3px solid;
+  border-collapse: separate;
+  border-spacing: 5px 0;
+} */
+
+ul {
+  list-style-type: none;
+  display: inline-block;
+  position: fixed; /* 画面に固定して追従させます */
+  top: 30vh; /* 表示画面の上から20%のところから表示を始めます */
+	left:0; /* 固定位置は左側 */
+	z-index: 0;
+  font-weight: bold;
+  font-size: x-large;
+  border: 3px solid rgb(172, 24, 147);
 }
 
 .btn--orange,
@@ -74,16 +98,40 @@ table {
 textarea {
   font-size: xx-large;
   resize: none;
-  width: 230px;
-  height: 15px;
-  background-color: chartreuse;
+  width: 800px;
+  height: 100px;
 }
 
+input {
+  border: none;
+  border-bottom: 1px solid #d1d1d1;
+  font-size: 1.2em;
+  /* width: 50%; */
+  padding: 8px;
+}
 
 input[name="url"] {
   display: block;
-  width: max-content;
+  width: 1000px;
 }
+
+select {
+  display: block;
+  width: auto;
+  height: 35px;
+  font-size: large;
+}
+
+option {
+  font-size:large;
+}
+input[type="submit"][name="submit"] {
+  border: none;
+  border-bottom: 1px solid #d1d1d1;
+  font-size: 1.2em;
+  padding: 8px;
+}
+
 .clear {
   clear: both;
 }
@@ -107,16 +155,30 @@ body {
   color: rgb(172, 24, 147);
   background-image: url("../images/background-image2.jpg");
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: cover;
   text-align: center;
-
 }
 
-#index {
+#post, #index, #mypage, #genre {
   background-color:powderblue;
   background-image: none;
 }
 
+body#post {
+  text-align: left;
+}
+
+tr {
+  font-size: x-large;
+}
+
+table {
+  margin: 0 0 0 auto;
+}
+
+tr.content {
+  white-space: pre-wrap;
+}
 .main {
   position: absolute;
   top: 64px;
@@ -133,7 +195,7 @@ body {
   border: 1px solid black;
 }
 
-form {
+form.form_login {
   margin: 0;
 }
 
@@ -161,14 +223,6 @@ form {
   border-radius: 5px;
 }
 
-input {
-  border: none;
-  border-bottom: 1px solid #d1d1d1;
-  font-size: 1.2em;
-  width: 50%;
-  padding: 8px;
-}
-
 /* success.php */
 .btn {
   width: 100%;
@@ -191,12 +245,12 @@ input {
   box-shadow: none;
 }
 
-.next-btn {
-  float: right;
-  width: 48%;
-}
+/* .next-btn {
+  float: none;
+  width: 100%;
+} */
 
-.back-btn {
+.back-btn, .next-btn {
   width: 48%;
   text-decoration: none;
   text-align: center;
@@ -212,7 +266,7 @@ input {
   font-size: 14px;
 }
 
-.back-btn:hover {
+.back-btn:hover, .next-btn:hover {
   background-color: rgba(27, 177, 112, 1.0);
 }
 
@@ -249,4 +303,11 @@ label {
 
 div [class="alert alert-danger"] {
   background-color: chartreuse;
+}
+
+/* mypage.php */
+#mypage {
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
 }
